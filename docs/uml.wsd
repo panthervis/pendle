@@ -1,0 +1,337 @@
+@startuml "Pendle Protocol"
+' -- for auto-render install: https://marketplace.visualstudio.com/items?itemName=jebbs.plantuml
+' -- options --
+
+' -- classes --
+
+package "User Facing" <<Folder>>  {
+
+	class Pendle {
+		' -- inheritance --
+		{abstract}IPendle
+		{abstract}Permissions
+
+		' -- usingFor --
+		{abstract}📚SafeMath for [[uint256]]
+
+		' -- vars --
+		+[[IPendleData]] data
+		+[[IPendleFactory]] factory
+		+[[IPendleProvider]] provider
+		+[[address]] weth
+		+[[address]] treasury
+		-[[address]] initializer
+
+		' -- methods --
+		+💰**__constructor__**()
+		+initialize()
+		+setContracts()
+		+redeemAfterExpiry()
+		+redeemUnderlying()
+		+renew()
+		+tokenizeYield()
+		+addMarketLiquidity()
+		+💰addMarketLiquidityETH()
+		+removeMarketLiquidity()
+		+removeMarketLiquidityETH()
+		+swapTokenToToken()
+		+💰swapEthToToken()
+		+swapTokenToEth()
+		+🔍getDestAmount()
+		+🔍getSrcAmount()
+		+🔍getDestAmounts()
+		+🔍getSrcAmounts()
+		+🔍getMarketRate()
+
+	}
+
+	class PendleFactory {
+    ' -- inheritance --
+		{abstract}IPendleFactory
+		{abstract}Permissions
+
+			' -- usingFor --
+
+			' -- vars --
+		+[[IPendle]] core
+		+[[IForgeCreator]] forgeCreator
+		+[[IMarketCreator]] marketCreator
+		-[[address]] allForges
+		-[[address]] allMarkets
+		-[[address]] initializer
+
+			' -- methods --
+		+**__constructor__**()
+		+initialize()
+		+createForge()
+		+createMarket()
+		+setCore()
+		+🔍allForgesLength()
+		+🔍getAllForges()
+		+🔍allMarketsLength()
+		+🔍getAllMarkets()
+	}
+}
+
+class PendleData {
+	' -- inheritance --
+	{abstract}IPendleData
+	{abstract}Permissions
+
+	' -- vars --
+	+[[mapping address=>mapping address=>address  ]] getForge
+	+[[mapping address=>mapping address=>address  ]] getMarket
+	+[[address]] core
+	-[[address]] initializer
+
+	' -- methods --
+	+**__constructor__**()
+	+initialize()
+	+setCore()
+	+addForge()
+	+addMarket()
+}
+
+class PendleProvider {
+	' -- inheritance --
+	{abstract}IPendleProvider
+	{abstract}Permissions
+
+	' -- vars --
+	+[[address]] aaveLendingPoolCore
+
+	' -- methods --
+	+**__constructor__**()
+	+setAaveAddress()
+	+🔍getATokenAddress()
+}
+
+class PendleForge {
+    ' -- inheritance --
+	{abstract}IPendleForge
+	{abstract}ReentrancyGuard
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[address]] core
+	+[[address]] factory
+	+[[address]] underlyingAsset
+	+[[address]] underlyingYieldToken
+	+[[IPendleProvider]] provider
+	+[[mapping uint256=>address ]] otTokens
+	+[[mapping uint256=>address ]] xytTokens
+	+[[mapping uint256=>uint256 ]] lastNormalisedIncomeBeforeExpiry
+	+[[mapping uint256=>mapping address=>uint256  ]] lastNormalisedIncome
+
+    ' -- methods --
+	+**__constructor__**()
+	+redeemDueInterests()
+	+redeemDueInterestsBeforeTransfer()
+	+redeemAfterExpiry()
+	+redeemUnderlying()
+	+tokenizeYield()
+	+newYieldContracts()
+	+🔍getAllXYTFromExpiry()
+	+🔍getAllOTFromExpiry()
+	#🔍_getTokens()
+	#_settleDueInterests()
+	#_forgeFutureYieldToken()
+	#_forgeOwnershipToken()
+}
+
+class PendleMarket {
+    ' -- inheritance --
+	{abstract}IPendleMarket
+	{abstract}PendleBaseToken
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[address]] core
+	+[[address]] factory
+	+[[address]] token
+	+[[address]] xyt
+	+[[IPendleProvider]] provider
+	+{static}[[uint256]] minLiquidity
+	-{static}[[string]] _name
+	-{static}[[string]] _symbol
+	-{static}[[uint8]] _decimals
+
+    ' -- methods --
+	+**__constructor__**()
+	+🔍getReserves()
+	+swap()
+}
+
+class ForgeCreator {
+    ' -- inheritance --
+	{abstract}IForgeCreator
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[IPendleProvider]] provider
+	+[[address]] core
+	+[[address]] factory
+	-[[address]] initializer
+
+    ' -- methods --
+	+**__constructor__**()
+	+initialize()
+	+create()
+}
+
+class MarketCreator {
+    ' -- inheritance --
+	{abstract}IMarketCreator
+
+    ' -- usingFor --
+
+    ' -- vars --
+	+[[IPendleProvider]] provider
+	+[[address]] core
+	+[[address]] factory
+	-[[address]] initializer
+
+    ' -- methods --
+	+**__constructor__**()
+	+initialize()
+	+create()
+}
+
+package "Yield Tokens" {
+	class PendleOwnershipToken {
+		' -- inheritance --
+		{abstract}PendleBaseToken
+
+		' -- usingFor --
+
+		' -- vars --
+		+[[address]] name
+		+[[address]] symbol
+		+[[address]] decimals
+		+[[address]] expiry
+		+[[address]] forge
+		+[[address]] underlyingAsset
+		+[[address]] underlyingYieldToken
+		+[[address]] xyt
+
+		' -- methods --
+		+**__constructor__**()
+
+	}
+
+	class PendleFutureYieldToken {
+		' -- inheritance --
+		{abstract}PendleBaseToken
+
+		' -- usingFor --
+
+		' -- vars --
+		+[[address]] name
+		+[[address]] symbol
+		+[[address]] decimals
+		+[[address]] expiry
+		+[[address]] forge
+		+[[address]] underlyingAsset
+		+[[address]] underlyingYieldToken
+		+[[address]] ot
+
+		' -- methods --
+		+**__constructor__**()
+
+	}
+}
+
+package "Governance" {
+	class PendleGovernance {
+		' -- inheritance --
+		' -- usingFor --
+		' -- vars --
+		' -- methods --
+	}
+
+	class PendleTreasury {
+		' -- inheritance --
+		' -- usingFor --
+		' -- vars --
+		' -- methods --
+	}
+
+	class PDL {
+		' -- inheritance --
+		' -- usingFor --
+		' -- vars --
+		' -- methods --
+	}
+}
+
+
+' -- interfaces --
+' interface IPendleData {
+' 	' -- methods --
+' 	+🔍core()
+' 	+setCore()
+' 	+🔍getForge()
+' 	+addForge()
+' 	+🔍getMarket()
+' 	+addMarket()
+' }
+
+' -- inheritance --
+' IPendle --[#DarkGoldenRod]|> Pendle
+' Permissions --[#DarkGoldenRod]|> Pendle
+' SafeMath ..[#DarkOliveGreen]|> Pendle : //for uint256//
+
+' IPendleFactory --[#DarkGoldenRod]|> PendleFactory
+' Permissions --[#DarkGoldenRod]|> PendleFactory
+
+' IPendleData --[#DarkGoldenRod]|> PendleData
+' Permissions --[#DarkGoldenRod]|> PendleData
+
+' IPendleProvider --[#DarkGoldenRod]|> PendleProvider
+' Permissions --[#DarkGoldenRod]|> PendleProvider
+
+' IPendleForge --[#DarkGoldenRod]|> PendleForge
+' ReentrancyGuard --[#DarkGoldenRod]|> PendleForge
+
+' IPendleMarket --[#DarkGoldenRod]|> PendleMarket
+
+' PendleBaseToken --[#DarkGoldenRod]|> PendleOwnershipToken
+' PendleBaseToken --[#DarkGoldenRod]|> PendleFutureYieldToken
+
+
+' -- creation --
+PendleFactory *--[#Red]|> ForgeCreator
+PendleFactory *--[#Red]|> MarketCreator
+ForgeCreator *--[#Red]|> PendleForge : creates
+MarketCreator *--[#Red]|> PendleMarket : creates
+
+' -- data --
+PendleData <--[#Magenta]--> Pendle : read/write
+PendleData <--[#Magenta]--> PendleFactory : read/write
+
+' -- provider --
+PendleProvider --[#Magenta]--> PendleFactory : reads
+PendleProvider --[#Magenta]--> PendleForge : reads
+PendleProvider --[#Magenta]--> PendleMarket : reads
+
+' -- tokenization --
+Pendle <--[#Blue]--> PendleForge : "tokenize/redeem"
+PendleForge *--[#Blue]|> PendleOwnershipToken : tokenizes
+PendleForge *--[#Blue]|> PendleFutureYieldToken : tokenizes
+
+' -- trading --
+Pendle <--[#Blue]--> PendleMarket : "trading"
+PendleMarket --[#Blue]--> PendleTreasury : "fees"
+
+' -- governance --
+PDL ..[#Green]..> PendleGovernance : voting
+PendleGovernance ..[#GreenYellow]..> Pendle : governs
+PendleGovernance ..[#GreenYellow]..> PendleData : governs
+PendleGovernance ..[#GreenYellow]..> PendleFactory : governs
+PendleGovernance ..[#GreenYellow]..> PendleProvider : governs
+PendleGovernance ..[#GreenYellow]..> PendleTreasury : governs
+
+@enduml

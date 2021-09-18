@@ -1,0 +1,24 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "PermissionsV2",
+  "sourceName": "contracts/periphery/PermissionsV2.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "governanceManager",
+      "outputs": [
+        {
+          "internalType": "contract PendleGovernanceManager",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

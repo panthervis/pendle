@@ -1,0 +1,71 @@
+{
+  "step": 17,
+  "contracts": {
+    "PendleTeamTokens": {
+      "address": "0x1d5D9cBA0921Ec19B9c246378020C5bb5D61623A",
+      "tx": "0x1cdf3c3923ae81170f9766e60dde8f4a3ebf5d5306b3f30fd31c59e611a3a967"
+    },
+    "PendleEcosystemFund": {
+      "address": "0x7EB5049689bc4C7F5Ddf9E04a4Ae45bB2662Bf2d",
+      "tx": "0xad7541db1706000951fd0a14b4c75d977410b02451d1e466b9c4d4f5316bbecf"
+    },
+    "PENDLE": {
+      "address": "0x67Cc8c8230FAc5054d02af04ba7315aae5327E72",
+      "tx": "0x883fa958df2b3143f779fe03138995939fb4d90c6d8f4fcda578a6a3fa9f66a8"
+    },
+    "PendleGovernanceManagerMain": {
+      "address": "0xc5aC0fbD38f587daE6E9B7405CEB6E297EA46c96",
+      "tx": "0x99717f0ec17e643fd5c7429a373dffe9606a27faf11d80a1baf4761d10423a49"
+    },
+    "PendleGovernanceManagerLiqMining": {
+      "address": "0x2f21eD2C269d57BC487162723B0BB79775b95Fc4",
+      "tx": "0x8bc229cfe8aea52a56c831e57223629d6930aff3803617cc816809211f688303"
+    },
+    "PendlePausingManagerMain": {
+      "address": "0x89891e778ccD615fA00d9B9B005430D867194933",
+      "tx": "0xc129e6817c0554cab881965f682536dd6e161958a4b422b58ea000d598c02856"
+    },
+    "PendlePausingManagerLiqMining": {
+      "address": "0x3b72A323Df34Ea3Ff86271c76b257aF19392E658",
+      "tx": "0x5a5be8acdb942290b14ec4fa73285d0e77ec2251075225d2dc3dc86933e6b4ec"
+    },
+    "PendleData": {
+      "address": "0x12B12D579c88267C9Cc6CFA0dDb7a36Bb0EfE3ED",
+      "tx": "0x92d9e1d2c28e585cf6a274022ec41da660646340f4a16b5b9956037db05098d7"
+    },
+    "PendleMarketReader": {
+      "address": "0x958393f1DadE575433825A007Fc9f1642dd366E1",
+      "tx": "0x0221ceedcfb67fe68a665f2234973ecd9857aea18e53365124597c5e575e362d"
+    },
+    "PendleRouter": {
+      "address": "0xac74ae0D2c82A35b719975A95E3f8300545Dbc71",
+      "tx": "0x8d8c7f1031200d0bcd9d5c43848c6447adfdb27373f07e7d7685fe2816f31f12"
+    },
+    "PendleRedeemProxy": {
+      "address": "0x1d5D9cBA0921Ec19B9c246378020C5bb5D61623A",
+      "tx": "0xb5ae94c7129f42654afa955e447823c875fdbdcd39ebc073ce63d15836798cb1"
+    },
+    "PendleWhitelist": {
+      "address": "0x7EB5049689bc4C7F5Ddf9E04a4Ae45bB2662Bf2d",
+      "tx": "0x22e51c4ba9f369eea773a6b8fd998534197de15a44866e74146585ac20af35b7"
+    },
+    "PendleGenericMarketFactory": {
+      "address": "0x1d5D9cBA0921Ec19B9c246378020C5bb5D61623A",
+      "tx": "0xd914d3b7f6c2d1ba61e02e1e54c355d8a7189293b87fd34edbcfb01fced1a3b8"
+    }
+  },
+  "variables": {
+    "GOVERNANCE_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "TEAM_TOKENS_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "ECOSYSTEM_FUND_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "SALES_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "LIQUIDITY_INCENTIVES_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "FORGE_EMERGENCY_HANDLER": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "MARKET_EMERGENCY_HANDLER": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "LIQ_MINING_EMERGENCY_HANDLER": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8",
+    "TREASURY_MULTISIG": "0x186e446fbd41dD51Ea2213dB2d3ae18B05A05ba8"
+  },
+  "yieldContracts": {},
+  "liquidityMiningV2Contracts": [],
+  "directories": []
+}
